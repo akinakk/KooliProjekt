@@ -1,0 +1,59 @@
+﻿@using KooliProjekt.Data
+@model PagedResult<KooliProjekt.Data.Material>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="pager-container">
+    @(await Component.InvokeAsync<KooliProjekt.Components.PagerViewComponent>(new { result = Model, viewName = "Default" }))
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Results.FirstOrDefault().NameOfMaterial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results.FirstOrDefault().HowMuchUsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results.FirstOrDefault().PricePerUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results.FirstOrDefault().Bill)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Results) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfMaterial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HowMuchUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bill.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
